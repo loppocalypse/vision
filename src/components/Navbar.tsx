@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +48,7 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
-          isScrolled
+          !isHomePage || isScrolled
             ? "bg-white/95 backdrop-blur-md shadow-lg py-3 text-primary border-b border-gray-100/80"
             : "bg-transparent py-5 text-white"
         }`}
@@ -63,7 +64,7 @@ export default function Navbar() {
                 height={52}
                 className="h-10 sm:h-12 w-auto transition-all duration-300"
                 style={{
-                  filter: isScrolled ? "none" : "invert(1) hue-rotate(180deg)"
+                  filter: !isHomePage || isScrolled ? "none" : "invert(1) hue-rotate(180deg)"
                 }}
                 priority
               />
@@ -80,7 +81,7 @@ export default function Navbar() {
                     className={`font-sans text-sm font-medium tracking-wide transition-all hover:text-accent relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform ${
                       isActive
                         ? "text-accent after:scale-x-100"
-                        : isScrolled
+                        : !isHomePage || isScrolled
                         ? "text-primary"
                         : "text-white"
                     }`}
@@ -97,7 +98,7 @@ export default function Navbar() {
               <a
                 href="tel:703-997-9717"
                 className={`flex items-center text-sm font-semibold transition-all hover:text-accent ${
-                  isScrolled ? "text-primary" : "text-white"
+                  !isHomePage || isScrolled ? "text-primary" : "text-white"
                 }`}
               >
                 <Phone className="w-4 h-4 mr-2 text-accent" />
@@ -117,7 +118,7 @@ export default function Navbar() {
               <a
                 href="tel:703-997-9717"
                 className={`p-2 rounded-full border transition-all ${
-                  isScrolled
+                  !isHomePage || isScrolled
                     ? "border-primary/20 text-primary hover:text-accent"
                     : "border-white/20 text-white hover:text-accent"
                 }`}
@@ -127,7 +128,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`p-2 rounded-lg transition-all ${
-                  isScrolled ? "text-primary" : "text-white"
+                  !isHomePage || isScrolled ? "text-primary" : "text-white"
                 }`}
                 aria-label="Toggle menu"
               >
