@@ -169,8 +169,14 @@ export default function Home() {
                   Book Free Consultation
                 </button>
                 <Link
+                  href="/estimator"
+                  className="w-full sm:w-auto px-8 py-4 bg-white text-primary font-bold uppercase tracking-wider rounded-full hover:bg-transparent hover:text-white transition-all shadow-lg text-sm border-2 border-white text-center"
+                >
+                  Estimate Project Cost
+                </Link>
+                <Link
                   href="#services"
-                  className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-primary transition-all text-sm"
+                  className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-primary transition-all text-sm text-center"
                 >
                   Explore Services
                 </Link>
