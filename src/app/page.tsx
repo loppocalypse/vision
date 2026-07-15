@@ -8,6 +8,7 @@ import BookingModal from "@/components/BookingModal";
 import FAQSection from "@/components/FAQSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import Reveal from "@/components/Reveal";
 import { Check, ClipboardList, PenTool, Gem, ShieldCheck, MapPin, Calendar, Clock, ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -139,34 +140,42 @@ export default function Home() {
 
           {/* Hero Content */}
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white mt-16 md:mt-24">
-            <span className="text-accent text-xs sm:text-sm font-bold uppercase tracking-widest bg-accent/20 border border-accent/30 px-4 py-2 rounded-full inline-block mb-6 animate-fade-in">
-              Fairfax County&apos;s Premier Home Builder
-            </span>
+            <Reveal animation="fade-in" delay={150}>
+              <span className="text-accent text-xs sm:text-sm font-bold uppercase tracking-widest bg-accent/20 border border-accent/30 px-4 py-2 rounded-full inline-block mb-6">
+                Fairfax County&apos;s Premier Home Builder
+              </span>
+            </Reveal>
             
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
-              Build + Remodel with <br className="hidden sm:inline" />
-              <span className="text-accent">the Best in Virginia</span>
-            </h1>
+            <Reveal animation="fade-in-up" delay={250}>
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
+                Build + Remodel with <br className="hidden sm:inline" />
+                <span className="text-accent">the Best in Virginia</span>
+              </h1>
+            </Reveal>
             
-            <p className="font-sans text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-10 font-light">
-              At Vision Custom Build + Remodel, we believe your dream home is within reach. 
-              For over 15 years, our expert designers and craftsmen have brought custom visions to life with exceptional quality.
-            </p>
+            <Reveal animation="fade-in-up" delay={400}>
+              <p className="font-sans text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-10 font-light">
+                At Vision Custom Build + Remodel, we believe your dream home is within reach. 
+                For over 15 years, our expert designers and craftsmen have brought custom visions to life with exceptional quality.
+              </p>
+            </Reveal>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={handleBookNow}
-                className="w-full sm:w-auto px-8 py-4 bg-accent-green text-primary font-bold uppercase tracking-wider rounded-full hover:bg-white hover:scale-105 transition-all shadow-lg text-sm border-2 border-accent-green hover:border-white"
-              >
-                Book Free Consultation
-              </button>
-              <Link
-                href="#services"
-                className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-primary transition-all text-sm"
-              >
-                Explore Services
-              </Link>
-            </div>
+            <Reveal animation="fade-in-up" delay={550}>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  onClick={handleBookNow}
+                  className="w-full sm:w-auto px-8 py-4 bg-accent-green text-primary font-bold uppercase tracking-wider rounded-full hover:bg-white hover:scale-105 transition-all shadow-lg text-sm border-2 border-accent-green hover:border-white"
+                >
+                  Book Free Consultation
+                </button>
+                <Link
+                  href="#services"
+                  className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-primary transition-all text-sm"
+                >
+                  Explore Services
+                </Link>
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -187,36 +196,37 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {services.map((service, index) => (
-                <div
-                  key={index}
-                  className="bg-white border border-gray-100 rounded-3xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Service Image */}
-                    <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-6 bg-gray-100">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </div>
-                    <h3 className="font-heading text-xl font-bold text-primary tracking-wide mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="font-sans text-sm text-gray-500 leading-relaxed font-light mb-6">
-                      {service.desc}
-                    </p>
-                  </div>
-                  <Link
-                    href={service.anchor}
-                    className="flex items-center text-xs font-bold uppercase text-accent tracking-widest hover:text-primary transition-colors group"
+                <Reveal key={index} animation="fade-in-up" delay={index * 150} className="h-full flex flex-col">
+                  <div
+                    className="bg-white border border-gray-100 rounded-3xl p-6 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between h-full"
                   >
-                    Learn Details 
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
-                  </Link>
-                </div>
+                    <div>
+                      {/* Service Image */}
+                      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover object-center"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                      <h3 className="font-heading text-xl font-bold text-primary tracking-wide mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="font-sans text-sm text-gray-500 leading-relaxed font-light mb-6">
+                        {service.desc}
+                      </p>
+                    </div>
+                    <Link
+                      href={service.anchor}
+                      className="flex items-center text-xs font-bold uppercase text-accent tracking-widest hover:text-primary transition-colors group"
+                    >
+                      Learn Details 
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
+                    </Link>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -262,20 +272,21 @@ export default function Home() {
                     <Gem key="g" className="w-8 h-8 text-accent" />
                   ];
                   return (
-                    <div
-                      key={index}
-                      className="p-6 bg-bg-light/40 border border-gray-100 rounded-3xl flex flex-col space-y-4 hover:border-accent/40 transition-colors"
-                    >
-                      <div className="bg-white p-3 rounded-2xl w-14 h-14 flex items-center justify-center shadow-sm border border-gray-50">
-                        {icons[index % icons.length]}
+                    <Reveal key={index} animation="scale-in" delay={index * 120} className="h-full flex flex-col">
+                      <div
+                        className="p-6 bg-bg-light/40 border border-gray-100 rounded-3xl flex flex-col space-y-4 hover:border-accent/40 transition-colors h-full"
+                      >
+                        <div className="bg-white p-3 rounded-2xl w-14 h-14 flex items-center justify-center shadow-sm border border-gray-50">
+                          {icons[index % icons.length]}
+                        </div>
+                        <h3 className="font-heading text-lg font-bold text-primary tracking-wide">
+                          {benefit.title}
+                        </h3>
+                        <p className="font-sans text-sm text-gray-500 leading-relaxed font-light">
+                          {benefit.desc}
+                        </p>
                       </div>
-                      <h3 className="font-heading text-lg font-bold text-primary tracking-wide">
-                        {benefit.title}
-                      </h3>
-                      <p className="font-sans text-sm text-gray-500 leading-relaxed font-light">
-                        {benefit.desc}
-                      </p>
-                    </div>
+                    </Reveal>
                   );
                 })}
               </div>
@@ -306,24 +317,25 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12">
               {processSteps.map((step, index) => (
-                <div
-                  key={index}
-                  className="relative p-8 bg-bg-dark/30 border border-white/10 rounded-3xl hover:border-accent/40 transition-colors duration-300"
-                >
-                  {/* Large watermarked step number */}
-                  <span className="absolute -top-7 left-6 font-heading text-6xl font-black text-accent/15 tracking-tight text-stroke-accent">
-                    {step.num}
-                  </span>
-                  
-                  <div className="pt-4">
-                    <h3 className="font-heading text-xl font-bold text-white tracking-wide mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="font-sans text-sm text-gray-300 leading-relaxed font-light">
-                      {step.desc}
-                    </p>
+                <Reveal key={index} animation="fade-in-up" delay={index * 100} className="h-full flex flex-col">
+                  <div
+                    className="relative p-8 bg-bg-dark/30 border border-white/10 rounded-3xl hover:border-accent/40 transition-colors duration-300 h-full"
+                  >
+                    {/* Large watermarked step number */}
+                    <span className="absolute -top-7 left-6 font-heading text-6xl font-black text-accent/15 tracking-tight text-stroke-accent">
+                      {step.num}
+                    </span>
+                    
+                    <div className="pt-4">
+                      <h3 className="font-heading text-xl font-bold text-white tracking-wide mb-3">
+                        {step.title}
+                      </h3>
+                      <p className="font-sans text-sm text-gray-300 leading-relaxed font-light">
+                        {step.desc}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -352,50 +364,51 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {blogPosts.map((post, index) => (
-                <article
-                  key={index}
-                  className="group flex flex-col justify-between bg-bg-light/40 border border-gray-100 rounded-3xl p-5 hover:bg-white hover:shadow-xl transition-all duration-300"
-                >
-                  <div>
-                    {/* Post Image */}
-                    <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-gray-100">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover object-center group-hover:scale-102 transition-transform duration-300"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </div>
-                    {/* Date / Read time */}
-                    <div className="flex items-center space-x-3 text-xs text-gray-400 font-sans mb-3">
-                      <span className="flex items-center">
-                        <Calendar className="w-3.5 h-3.5 mr-1" />
-                        {post.date}
-                      </span>
-                      <span className="flex items-center">
-                        <Clock className="w-3.5 h-3.5 mr-1" />
-                        {post.readTime}
-                      </span>
-                    </div>
-                    {/* Title */}
-                    <h3 className="font-heading text-base font-bold text-primary group-hover:text-accent transition-colors tracking-wide leading-snug mb-3">
-                      <Link href={post.url}>
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <p className="font-sans text-xs text-gray-500 leading-relaxed font-light mb-6">
-                      {post.desc}
-                    </p>
-                  </div>
-                  <Link
-                    href={post.url}
-                    className="inline-flex items-center text-xs font-bold uppercase text-primary hover:text-accent transition-colors"
+                <Reveal key={index} animation="fade-in-up" delay={index * 150} className="h-full flex flex-col">
+                  <article
+                    className="group flex flex-col justify-between bg-bg-light/40 border border-gray-100 rounded-3xl p-5 hover:bg-white hover:shadow-xl transition-all duration-300 h-full"
                   >
-                    Read Article 
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
-                  </Link>
-                </article>
+                    <div>
+                      {/* Post Image */}
+                      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-gray-100">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          className="object-cover object-center group-hover:scale-102 transition-transform duration-300"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                      {/* Date / Read time */}
+                      <div className="flex items-center space-x-3 text-xs text-gray-400 font-sans mb-3">
+                        <span className="flex items-center">
+                          <Calendar className="w-3.5 h-3.5 mr-1" />
+                          {post.date}
+                        </span>
+                        <span className="flex items-center">
+                          <Clock className="w-3.5 h-3.5 mr-1" />
+                          {post.readTime}
+                        </span>
+                      </div>
+                      {/* Title */}
+                      <h3 className="font-heading text-base font-bold text-primary group-hover:text-accent transition-colors tracking-wide leading-snug mb-3">
+                        <Link href={post.url}>
+                          {post.title}
+                        </Link>
+                      </h3>
+                      <p className="font-sans text-xs text-gray-500 leading-relaxed font-light mb-6">
+                        {post.desc}
+                      </p>
+                    </div>
+                    <Link
+                      href={post.url}
+                      className="inline-flex items-center text-xs font-bold uppercase text-primary hover:text-accent transition-colors"
+                    >
+                      Read Article 
+                      <ArrowRight className="w-4 h-4 ml-1.5" />
+                    </Link>
+                  </article>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -421,58 +434,64 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Virginia Card */}
-              <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                <div className="flex items-center mb-6 text-primary">
-                  <div className="bg-primary/5 p-3 rounded-2xl mr-3">
-                    <MapPin className="w-6 h-6 text-accent" />
+              <Reveal animation="fade-in-up" delay={0} className="h-full flex flex-col">
+                <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm h-full">
+                  <div className="flex items-center mb-6 text-primary">
+                    <div className="bg-primary/5 p-3 rounded-2xl mr-3">
+                      <MapPin className="w-6 h-6 text-accent" />
+                    </div>
+                    <h3 className="font-heading text-xl font-bold tracking-wide">Virginia</h3>
                   </div>
-                  <h3 className="font-heading text-xl font-bold tracking-wide">Virginia</h3>
+                  <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
+                    {["Alexandria", "Arlington", "Fairfax", "McLean", "Great Falls", "Vienna", "Sterling", "Leesburg"].map((city) => (
+                      <li key={city} className="flex items-center">
+                        <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
+                        {city}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
-                  {["Alexandria", "Arlington", "Fairfax", "McLean", "Great Falls", "Vienna", "Sterling", "Leesburg"].map((city) => (
-                    <li key={city} className="flex items-center">
-                      <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
-                      {city}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </Reveal>
 
               {/* D.C. Card */}
-              <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                <div className="flex items-center mb-6 text-primary">
-                  <div className="bg-primary/5 p-3 rounded-2xl mr-3">
-                    <MapPin className="w-6 h-6 text-accent" />
+              <Reveal animation="fade-in-up" delay={150} className="h-full flex flex-col">
+                <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm h-full">
+                  <div className="flex items-center mb-6 text-primary">
+                    <div className="bg-primary/5 p-3 rounded-2xl mr-3">
+                      <MapPin className="w-6 h-6 text-accent" />
+                    </div>
+                    <h3 className="font-heading text-xl font-bold tracking-wide">Washington, D.C.</h3>
                   </div>
-                  <h3 className="font-heading text-xl font-bold tracking-wide">Washington, D.C.</h3>
+                  <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
+                    {["Georgetown", "Logan Circle", "Capitol Hill", "Adams Morgan", "Woodley Park", "Columbia Heights", "Mount Vernon"].map((city) => (
+                      <li key={city} className="flex items-center">
+                        <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
+                        {city}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
-                  {["Georgetown", "Logan Circle", "Capitol Hill", "Adams Morgan", "Woodley Park", "Columbia Heights", "Mount Vernon"].map((city) => (
-                    <li key={city} className="flex items-center">
-                      <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
-                      {city}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </Reveal>
 
               {/* Maryland Card */}
-              <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                <div className="flex items-center mb-6 text-primary">
-                  <div className="bg-primary/5 p-3 rounded-2xl mr-3">
-                    <MapPin className="w-6 h-6 text-accent" />
+              <Reveal animation="fade-in-up" delay={300} className="h-full flex flex-col">
+                <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm h-full">
+                  <div className="flex items-center mb-6 text-primary">
+                    <div className="bg-primary/5 p-3 rounded-2xl mr-3">
+                      <MapPin className="w-6 h-6 text-accent" />
+                    </div>
+                    <h3 className="font-heading text-xl font-bold tracking-wide">Maryland</h3>
                   </div>
-                  <h3 className="font-heading text-xl font-bold tracking-wide">Maryland</h3>
+                  <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
+                    {["Chevy Chase", "Bethesda", "Potomac", "Silver Spring", "South Kensington", "Rockville", "Forest Glen"].map((city) => (
+                      <li key={city} className="flex items-center">
+                        <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
+                        {city}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-3 font-sans text-sm font-light text-gray-600">
-                  {["Chevy Chase", "Bethesda", "Potomac", "Silver Spring", "South Kensington", "Rockville", "Forest Glen"].map((city) => (
-                    <li key={city} className="flex items-center">
-                      <Check className="w-4 h-4 text-accent mr-2.5 shrink-0" />
-                      {city}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
+import Reveal from "@/components/Reveal";
 import { ArrowUpRight } from "lucide-react";
 
 interface ServiceItem {
@@ -124,15 +125,17 @@ export default function Services() {
         <section className="bg-primary text-white py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(238,77,56,0.08),transparent_50%)]"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <span className="text-accent text-xs font-bold uppercase tracking-widest bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
-              Our Services
-            </span>
-            <h1 className="font-heading text-4xl sm:text-5xl font-extrabold mt-4 tracking-tight">
-              Remodeling Services in Northern Virginia
-            </h1>
-            <p className="font-sans text-sm sm:text-base text-gray-300 mt-3 max-w-xl mx-auto font-light">
-              Providing luxury kitchen, bath, addition, basement, and custom build solutions tailored to your unique requirements.
-            </p>
+            <Reveal animation="fade-in-up" delay={0}>
+              <span className="text-accent text-xs font-bold uppercase tracking-widest bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
+                Our Services
+              </span>
+              <h1 className="font-heading text-4xl sm:text-5xl font-extrabold mt-4 tracking-tight">
+                Remodeling Services in Northern Virginia
+              </h1>
+              <p className="font-sans text-sm sm:text-base text-gray-300 mt-3 max-w-xl mx-auto font-light">
+                Providing luxury kitchen, bath, addition, basement, and custom build solutions tailored to your unique requirements.
+              </p>
+            </Reveal>
           </div>
         </section>
 
@@ -148,63 +151,65 @@ export default function Services() {
                   className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center scroll-mt-28"
                 >
                   {/* Image Column */}
-                  <div
-                    className={`lg:col-span-6 relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl bg-gray-100 ${
-                      isEven ? "lg:order-1" : "lg:order-2"
-                    }`}
+                  <Reveal
+                    animation={isEven ? "fade-in-left" : "fade-in-right"}
+                    className={`lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}
                   >
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </div>
+                    <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-xl bg-gray-100">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    </div>
+                  </Reveal>
 
                   {/* Text Details Column */}
-                  <div
-                    className={`lg:col-span-6 flex flex-col space-y-6 ${
-                      isEven ? "lg:order-2" : "lg:order-1"
-                    }`}
+                  <Reveal
+                    animation={isEven ? "fade-in-right" : "fade-in-left"}
+                    className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}
                   >
-                    <div>
-                      <span className="text-accent text-xs font-bold uppercase tracking-widest">
-                        {service.subtitle}
-                      </span>
-                      <h2 className="font-heading text-3xl font-bold text-primary mt-1 tracking-tight">
-                        {service.title}
-                      </h2>
-                    </div>
+                    <div className="flex flex-col space-y-6">
+                      <div>
+                        <span className="text-accent text-xs font-bold uppercase tracking-widest">
+                          {service.subtitle}
+                        </span>
+                        <h2 className="font-heading text-3xl font-bold text-primary mt-1 tracking-tight">
+                          {service.title}
+                        </h2>
+                      </div>
 
-                    <p className="font-sans text-sm sm:text-base text-gray-600 leading-relaxed font-light">
-                      {service.desc}
-                    </p>
+                      <p className="font-sans text-sm sm:text-base text-gray-600 leading-relaxed font-light">
+                        {service.desc}
+                      </p>
 
-                    <div>
-                      <h3 className="font-heading text-sm font-bold text-primary mb-3">
-                        {service.bulletIntro}
-                      </h3>
-                      <ul className="grid grid-cols-1 gap-2 font-sans text-sm text-gray-500 font-light">
-                        {service.bullets.map((bullet, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-accent mr-3 font-bold">•</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                      <div>
+                        <h3 className="font-heading text-sm font-bold text-primary mb-3">
+                          {service.bulletIntro}
+                        </h3>
+                        <ul className="grid grid-cols-1 gap-2 font-sans text-sm text-gray-500 font-light">
+                          {service.bullets.map((bullet, i) => (
+                            <li key={i} className="flex items-start">
+                              <span className="text-accent mr-3 font-bold">•</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                    <div className="pt-4 flex items-center space-x-4">
-                      <button
-                        onClick={handleBookNow}
-                        className="px-6 py-3 bg-primary text-white hover:bg-accent hover:text-primary text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 shadow-md flex items-center"
-                      >
-                        Book This Service 
-                        <ArrowUpRight className="w-4 h-4 ml-2" />
-                      </button>
+                      <div className="pt-4 flex items-center space-x-4">
+                        <button
+                          onClick={handleBookNow}
+                          className="px-6 py-3 bg-primary text-white hover:bg-accent hover:text-primary text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 shadow-md flex items-center"
+                        >
+                          Book This Service 
+                          <ArrowUpRight className="w-4 h-4 ml-2" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </Reveal>
                 </div>
               );
             })}

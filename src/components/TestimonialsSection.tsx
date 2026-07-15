@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 interface Testimonial {
   author: string;
@@ -82,83 +83,81 @@ export default function TestimonialsSection() {
     <section className="py-24 bg-primary text-white relative overflow-hidden" id="testimonials">
       {/* Decorative background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(238,77,56,0.08),transparent_50%)]"></div>
-
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <span className="text-accent text-xs font-bold uppercase tracking-widest bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
-            Testimonials
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
-            Trusted by Countless Homeowners
-          </h2>
-          <p className="font-sans text-sm text-gray-300 mt-2 max-w-xl mx-auto font-light">
-            Read stories of how we turn design plans into high-craftsmanship realities in Northern Virginia.
-          </p>
-        </div>
+        <Reveal animation="fade-in-up" delay={0}>
+          <div className="text-center mb-16">
+            <span className="text-accent text-xs font-bold uppercase tracking-widest bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
+              Testimonials
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
+              Trusted by Countless Homeowners
+            </h2>
+            <p className="font-sans text-sm text-gray-300 mt-2 max-w-xl mx-auto font-light">
+              Read stories of how we turn design plans into high-craftsmanship realities in Northern Virginia.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Carousel Window */}
-        <div className="relative bg-bg-dark/40 border border-accent/10 rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl backdrop-blur-sm">
-          {/* Quote icon watermark */}
-          <Quote className="absolute right-8 bottom-8 w-24 h-24 text-accent/5 pointer-events-none" />
+        <Reveal animation="scale-in" delay={150}>
+          <div className="relative bg-bg-dark/40 border border-accent/10 rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl backdrop-blur-sm">
+            {/* Quote icon watermark */}
+            <Quote className="absolute right-8 bottom-8 w-24 h-24 text-accent/5 pointer-events-none" />
 
-          {/* Testimonial Content Wrapper */}
-          <div
-            className={`transition-opacity duration-300 flex flex-col justify-between h-full ${
-              isAnimating ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            {/* Stars */}
-            <div className="flex items-center space-x-1 mb-6 text-accent">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-current" />
-              ))}
-            </div>
-
-            {/* Review text */}
-            <blockquote className="font-sans text-lg sm:text-xl md:text-2xl text-gray-200 leading-relaxed font-light italic mb-8">
-              &ldquo;{testimonials[activeIndex].text}&rdquo;
-            </blockquote>
-
-            {/* Reviewer Details */}
-            <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <cite className="font-heading text-lg font-bold text-accent not-italic tracking-wide">
-                  {testimonials[activeIndex].author}
-                </cite>
-                <p className="text-xs text-gray-400 mt-0.5 font-light">
-                  {testimonials[activeIndex].role}
-                </p>
+            {/* Testimonial Content Wrapper */}
+            <div
+              className={`transition-opacity duration-300 flex flex-col justify-between h-full ${
+                isAnimating ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              {/* Stars */}
+              <div className="flex items-center space-x-1 mb-6 text-accent">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-current" />
+                ))}
               </div>
-              <span className="text-xs text-gray-400 font-sans mt-2 sm:mt-0 font-light">
-                {testimonials[activeIndex].date}
-              </span>
+
+              <p className="font-sans text-base sm:text-lg md:text-xl font-light text-gray-100 leading-relaxed mb-8 relative z-10">
+                &ldquo;{testimonials[activeIndex].text}&rdquo;
+              </p>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-white/5">
+                <div>
+                  <h4 className="font-heading text-lg font-bold text-white tracking-wide">
+                    {testimonials[activeIndex].author}
+                  </h4>
+                  <p className="font-sans text-xs text-gray-400 mt-1">
+                    {testimonials[activeIndex].role} • {testimonials[activeIndex].date}
+                  </p>
+                </div>
+
+                {/* Navigation buttons inside card */}
+                <div className="flex items-center space-x-4 self-end sm:self-auto">
+                  <button
+                    onClick={handlePrev}
+                    className="p-3 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full transition-all text-gray-300 hover:text-white"
+                    aria-label="Previous testimonial"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={handleBookNow}
+                    className="px-6 py-3 bg-accent-green hover:bg-white text-primary font-bold uppercase tracking-wider rounded-full transition-all text-xs"
+                  >
+                    Request Consultation
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="p-3 bg-accent text-primary hover:bg-white rounded-full transition-all shadow-lg hover:scale-105"
+                    aria-label="Next testimonial"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Navigation Controls */}
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-4">
-            <button
-              onClick={handlePrev}
-              className="p-3 bg-accent text-primary hover:bg-white rounded-full transition-all shadow-lg hover:scale-105"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleBookNow}
-              className="px-6 py-2.5 bg-white text-primary hover:bg-accent hover:text-primary rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-lg hidden sm:block"
-            >
-              Request Consultation
-            </button>
-            <button
-              onClick={handleNext}
-              className="p-3 bg-accent text-primary hover:bg-white rounded-full transition-all shadow-lg hover:scale-105"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+        </Reveal>
 
         {/* Indicators */}
         <div className="flex justify-center space-x-2 mt-12">
