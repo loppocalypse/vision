@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   const mainLinks = [
@@ -33,60 +34,19 @@ export default function Footer() {
           {/* Column 1: Branding & Intro */}
           <div className="flex flex-col space-y-6">
             <Link href="/" className="inline-block">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 350 90"
-                fill="none"
-                className="h-12 w-auto"
-              >
-                <path
-                  d="M25 15L48 68L71 15"
-                  stroke="var(--accent)"
-                  strokeWidth="6.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M40 15L63 68L86 15"
-                  stroke="#FFFFFF"
-                  strokeWidth="6.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle
-                  cx="55"
-                  cy="41"
-                  r="24"
-                  stroke="var(--accent)"
-                  strokeWidth="1.5"
-                  strokeDasharray="4 4"
-                  opacity="0.4"
-                />
-                <text
-                  x="105"
-                  y="42"
-                  fontFamily="'Outfit', sans-serif"
-                  fontSize="24"
-                  fontWeight="800"
-                  fill="#FFFFFF"
-                  letterSpacing="1"
-                >
-                  VISION CUSTOM
-                </text>
-                <text
-                  x="105"
-                  y="65"
-                  fontFamily="'Plus Jakarta Sans', sans-serif"
-                  fontSize="11.5"
-                  fontWeight="700"
-                  fill="var(--accent)"
-                  letterSpacing="4"
-                >
-                  BUILD + REMODEL
-                </text>
-              </svg>
+              <Image
+                src="/images/logo.png"
+                alt="Vision Custom Build + Remodel Logo"
+                width={200}
+                height={52}
+                className="h-10 sm:h-12 w-auto transition-all duration-300"
+                style={{
+                  filter: "invert(1) hue-rotate(180deg)"
+                }}
+                priority
+              />
             </Link>
-            
+
             <p className="text-gray-300 text-sm leading-relaxed font-sans font-light">
               At Vision Custom Build + Remodel, we bring your vision to life through exceptional craftsmanship and a commitment to personalized, inspired design. Crafting spaces you&apos;ll love, with passion and precision.
             </p>
@@ -141,12 +101,12 @@ export default function Footer() {
               <ul className="space-y-4 font-sans text-sm font-light">
                 <li className="flex items-start text-gray-300">
                   <MapPin className="w-5 h-5 mr-3 text-accent shrink-0 mt-0.5" />
-                  <span>Fairfax, Northern Virginia community</span>
+                  <span>Vision Custom Build & Remodel 9512 Main St #20, Fairfax, VA 22031</span>
                 </li>
                 <li className="flex items-center text-gray-300">
                   <Phone className="w-5 h-5 mr-3 text-accent shrink-0" />
-                  <a href="tel:703-997-9717" className="hover:text-accent transition-colors">
-                    703-997-9717
+                  <a href="tel:+1 (703)-997-9717" className="hover:text-accent transition-colors">
+                    +1 (703)-997-9717
                   </a>
                 </li>
                 <li className="flex items-center text-gray-300">

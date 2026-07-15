@@ -47,11 +47,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
-          !isHomePage || isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg py-3 text-primary border-b border-gray-100/80"
-            : "bg-transparent py-5 text-white"
-        }`}
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${!isHomePage || isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg py-3 text-primary border-b border-gray-100/80"
+          : "bg-transparent py-5 text-white"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -78,13 +77,12 @@ export default function Navbar() {
                   <Link
                     key={link.label}
                     href={link.url}
-                    className={`font-sans text-sm font-medium tracking-wide transition-all hover:text-accent relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform ${
-                      isActive
-                        ? "text-accent after:scale-x-100"
-                        : !isHomePage || isScrolled
+                    className={`font-sans text-sm font-medium tracking-wide transition-all hover:text-accent relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-accent after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform ${isActive
+                      ? "text-accent after:scale-x-100"
+                      : !isHomePage || isScrolled
                         ? "text-primary"
                         : "text-white"
-                    }`}
+                      }`}
                   >
                     {link.label}
                   </Link>
@@ -97,12 +95,11 @@ export default function Navbar() {
               {/* Phone */}
               <a
                 href="tel:703-997-9717"
-                className={`flex items-center text-sm font-semibold transition-all hover:text-accent ${
-                  !isHomePage || isScrolled ? "text-primary" : "text-white"
-                }`}
+                className={`flex items-center text-sm font-semibold transition-all hover:text-accent ${!isHomePage || isScrolled ? "text-primary" : "text-white"
+                  }`}
               >
                 <Phone className="w-4 h-4 mr-2 text-accent" />
-                703-997-9717
+                +1 (703)-997-9717
               </a>
 
               <button
@@ -116,20 +113,18 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <div className="flex items-center md:hidden space-x-3">
               <a
-                href="tel:703-997-9717"
-                className={`p-2 rounded-full border transition-all ${
-                  !isHomePage || isScrolled
-                    ? "border-primary/20 text-primary hover:text-accent"
-                    : "border-white/20 text-white hover:text-accent"
-                }`}
+                href="tel:+1 (703)-997-9717"
+                className={`p-2 rounded-full border transition-all ${!isHomePage || isScrolled
+                  ? "border-primary/20 text-primary hover:text-accent"
+                  : "border-white/20 text-white hover:text-accent"
+                  }`}
               >
                 <Phone className="w-4 h-4" />
               </a>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`p-2 rounded-lg transition-all ${
-                  !isHomePage || isScrolled ? "text-primary" : "text-white"
-                }`}
+                className={`p-2 rounded-lg transition-all ${!isHomePage || isScrolled ? "text-primary" : "text-white"
+                  }`}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
@@ -145,11 +140,10 @@ export default function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed inset-0 z-30 md:hidden bg-primary/98 flex flex-col justify-center px-6 py-20 transition-all duration-500 ease-in-out transform ${
-          isMobileMenuOpen
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-30 md:hidden bg-primary/98 flex flex-col justify-center px-6 py-20 transition-all duration-500 ease-in-out transform ${isMobileMenuOpen
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-full opacity-0 pointer-events-none"
+          }`}
       >
         <nav className="flex flex-col space-y-6 text-center">
           {navLinks.map((link) => {
@@ -158,9 +152,8 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.url}
-                className={`font-sans text-2xl font-semibold tracking-wide transition-all ${
-                  isActive ? "text-accent" : "text-white hover:text-accent"
-                }`}
+                className={`font-sans text-2xl font-semibold tracking-wide transition-all ${isActive ? "text-accent" : "text-white hover:text-accent"
+                  }`}
               >
                 {link.label}
               </Link>
