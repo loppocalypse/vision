@@ -32,6 +32,7 @@ export default function Navbar() {
     { label: "About Us", url: "/about-us" },
     { label: "Services", url: "/services" },
     { label: "Portfolio", url: "/portfolios" },
+    { label: "Cost Estimator", url: "/estimator" },
     { label: "Blog", url: "/blog" },
     { label: "FAQ", url: "/faq" },
     { label: "Contact Us", url: "/contact-us" },
