@@ -31,8 +31,8 @@ export default function ContactUs() {
     },
     {
       title: "Business Hours",
-      value: "Mon - Fri: 8 AM - 6 PM",
-      desc: "Closed weekends & major holidays.",
+      value: "Mon - Sat: 9 AM - 6 PM",
+      desc: "Closed only Sundays.",
       href: "#",
       icon: <Clock className="w-6 h-6 text-accent" />
     }
@@ -63,7 +63,7 @@ export default function ContactUs() {
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-              
+
               {/* Left Side: Contact Cards */}
               <div className="lg:col-span-5 space-y-6">
                 <div className="mb-8">

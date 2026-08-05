@@ -8,6 +8,8 @@ import BookingModal from "@/components/BookingModal";
 import FAQSection from "@/components/FAQSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import PhoneVideoPlayer from "@/components/PhoneVideoPlayer";
+import BrandTicker from "@/components/BrandTicker";
 import Reveal from "@/components/Reveal";
 import { Check, ClipboardList, PenTool, Gem, ShieldCheck, MapPin, Calendar, Clock, ArrowRight } from "lucide-react";
 
@@ -32,9 +34,15 @@ export default function Home() {
     },
     {
       title: "Home Additions",
-      desc: "Expand your square footage with seamless home extensions, sunrooms, and structures that perfectly complement your current architecture.",
+      desc: "Expand your square footage with seamless home extensions, custom garages, decks, sunrooms, and structures that perfectly complement your current architecture.",
       image: "/images/addition.png",
       anchor: "/services#addition"
+    },
+    {
+      title: "Basement Remodeling",
+      desc: "Turn cold, unfinished basements into dry, warm, and highly usable family spaces, home theaters, workout gyms, and custom wet bars.",
+      image: "/images/hero-bg.png",
+      anchor: "/services#basement"
     }
   ];
 
@@ -145,17 +153,17 @@ export default function Home() {
                 Fairfax County&apos;s Premier Home Builder
               </span>
             </Reveal>
-            
+
             <Reveal animation="fade-in-up" delay={250}>
               <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
                 Build + Remodel with <br className="hidden sm:inline" />
                 <span className="text-accent">the Best in Virginia</span>
               </h1>
             </Reveal>
-            
+
             <Reveal animation="fade-in-up" delay={400}>
               <p className="font-sans text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-10 font-light">
-                At Vision Custom Build + Remodel, we believe your dream home is within reach. 
+                At Vision Custom Build + Remodel, we believe your dream home is within reach.
                 For over 15 years, our expert designers and craftsmen have brought custom visions to life with exceptional quality.
               </p>
             </Reveal>
@@ -185,6 +193,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Brand Ticker Showcase */}
+        <BrandTicker />
+
         {/* Section 2: Services Grid */}
         <section className="py-24 bg-bg-light" id="services">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,7 +211,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {services.map((service, index) => (
                 <Reveal key={index} animation="fade-in-up" delay={index * 150} className="h-full flex flex-col">
                   <div
@@ -208,13 +219,13 @@ export default function Home() {
                   >
                     <div>
                       {/* Service Image */}
-                      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                      <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden mb-6 bg-gray-100">
                         <Image
                           src={service.image}
                           alt={service.title}
                           fill
                           className="object-cover object-center"
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                       </div>
                       <h3 className="font-heading text-xl font-bold text-primary tracking-wide mb-3">
@@ -228,7 +239,7 @@ export default function Home() {
                       href={service.anchor}
                       className="flex items-center text-xs font-bold uppercase text-accent tracking-widest hover:text-primary transition-colors group"
                     >
-                      Learn Details 
+                      Learn Details
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1.5 transition-transform" />
                     </Link>
                   </div>
@@ -242,7 +253,7 @@ export default function Home() {
         <section className="py-24 bg-white border-y border-gray-100" id="benefits">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-              
+
               {/* Left Column: Heading & Paragraph */}
               <div className="lg:col-span-5 flex flex-col space-y-6">
                 <span className="text-accent text-xs font-bold uppercase tracking-widest bg-accent/10 px-3 py-1.5 rounded-full self-start">
@@ -257,7 +268,7 @@ export default function Home() {
                 <p className="font-sans text-sm text-gray-500 leading-relaxed font-light italic border-l-2 border-accent pl-4">
                   &ldquo;We take pride in turning visions into reality, building lasting relationships through quality, transparency, and dedication.&rdquo;
                 </p>
-                
+
                 <div className="pt-4">
                   <button
                     onClick={handleBookNow}
@@ -301,7 +312,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 4: Filterable Portfolio Grid */}
+        {/* Section 4: Social Showcase Video Player */}
+        <PhoneVideoPlayer />
+
+        {/* Section 5: Filterable Portfolio Grid */}
         <PortfolioGrid />
 
         {/* Section 5: Remodeling Process */}
@@ -331,7 +345,7 @@ export default function Home() {
                     <span className="absolute -top-7 left-6 font-heading text-6xl font-black text-accent/15 tracking-tight text-stroke-accent">
                       {step.num}
                     </span>
-                    
+
                     <div className="pt-4">
                       <h3 className="font-heading text-xl font-bold text-white tracking-wide mb-3">
                         {step.title}
@@ -410,7 +424,7 @@ export default function Home() {
                       href={post.url}
                       className="inline-flex items-center text-xs font-bold uppercase text-primary hover:text-accent transition-colors"
                     >
-                      Read Article 
+                      Read Article
                       <ArrowRight className="w-4 h-4 ml-1.5" />
                     </Link>
                   </article>

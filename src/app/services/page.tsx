@@ -58,14 +58,14 @@ export default function Services() {
       id: "addition",
       title: "Home Additions",
       subtitle: "Expand Your Living Spaces Seamlessly",
-      desc: "Need more room? Avoid the hassle of moving by expanding your footprint. We construct top-tier family sunrooms, second-story expansions, attached master suite wings, and in-law suites that match the historic lines of your current house.",
+      desc: "Need more room? Avoid the hassle of moving by expanding your footprint. We construct top-tier family sunrooms, custom garages, decks, second-story expansions, attached master suite wings, and in-law suites that match the historic lines of your current house.",
       bulletIntro: "Our structural additions offer:",
       bullets: [
         "Architectural plans matching existing roof and exterior lines",
         "Slab, crawlspace, or basement structural foundations",
         "Permit processing and historic district HOA management",
         "Energy-efficient insulation, windows, and climate control",
-        "Sunrooms, master suites, and garage integrations"
+        "Sunrooms, master suites, garages, and custom decks"
       ],
       image: "/images/addition.png"
     },
