@@ -52,7 +52,7 @@ export default function BookingModal() {
         {/* Close Button overlay */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-50 flex items-center justify-center w-9 h-9 bg-primary/5 hover:bg-primary/10 text-primary hover:text-black rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-accent"
+          className="absolute top-4 right-4 z-50 flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 text-white hover:text-accent rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label="Close booking calendar"
         >
           <X className="w-5 h-5" />

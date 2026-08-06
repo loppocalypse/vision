@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/utils/supabase";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, User, Mail, Phone, FileText, CheckCircle2, AlertTriangle, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, User, Mail, Phone, FileText, CheckCircle2, AlertTriangle, Loader2, MapPin, Megaphone } from "lucide-react";
 
 export default function BookingCalendar() {
   // Calendar dates state
@@ -14,6 +14,10 @@ export default function BookingCalendar() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [referralSource, setReferralSource] = useState("Google Search");
   const [projectType, setProjectType] = useState("Kitchen Remodeling");
   const [details, setDetails] = useState("");
 
@@ -22,7 +26,7 @@ export default function BookingCalendar() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "03:00 PM", "04:30 PM"];
+  const timeSlots = ["09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM", "15:30 PM", "16:00 PM", "16:30 PM"];
 
   // Helper date calculations
   const year = currentDate.getFullYear();
@@ -72,14 +76,15 @@ export default function BookingCalendar() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTime || !name || !email || !phone) return;
+    if (!selectedDate || !selectedTime || !name || !email || !phone || !address || !city || !zipCode || !referralSource) return;
 
     setLoading(true);
     setErrorMessage("");
 
     try {
       const formattedDate = formatDateString(selectedDate);
-      
+
+      const fullDetails = `Address: ${address}, ${city}, ${zipCode}\nFound Us: ${referralSource}\n\n${details}`.trim();
       const { error } = await supabase.from("appointments").insert([
         {
           name,
@@ -88,7 +93,11 @@ export default function BookingCalendar() {
           project_type: projectType,
           appointment_date: formattedDate,
           appointment_time: selectedTime,
-          details
+          details: fullDetails,
+          address,
+          city,
+          zip_code: zipCode,
+          referral_source: referralSource
         }
       ]);
 
@@ -126,6 +135,10 @@ export default function BookingCalendar() {
     setName("");
     setEmail("");
     setPhone("");
+    setAddress("");
+    setCity("");
+    setZipCode("");
+    setReferralSource("Google Search");
     setProjectType("Kitchen Remodeling");
     setDetails("");
     setStep(1);
@@ -146,10 +159,10 @@ export default function BookingCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
       const cellDate = new Date(year, month, day);
       const isPast = cellDate < today;
-      const isSelected = selectedDate && 
-                        selectedDate.getDate() === day && 
-                        selectedDate.getMonth() === month && 
-                        selectedDate.getFullYear() === year;
+      const isSelected = selectedDate &&
+        selectedDate.getDate() === day &&
+        selectedDate.getMonth() === month &&
+        selectedDate.getFullYear() === year;
 
       cells.push(
         <button
@@ -157,13 +170,12 @@ export default function BookingCalendar() {
           type="button"
           disabled={isPast}
           onClick={() => handleDaySelect(day)}
-          className={`h-10 sm:h-12 w-full rounded-lg text-sm font-semibold flex items-center justify-center transition-all ${
-            isPast 
-              ? "text-gray-300 cursor-not-allowed bg-transparent"
-              : isSelected
+          className={`h-10 sm:h-12 w-full rounded-lg text-sm font-semibold flex items-center justify-center transition-all ${isPast
+            ? "text-gray-300 cursor-not-allowed bg-transparent"
+            : isSelected
               ? "bg-accent text-primary scale-105 shadow-md shadow-accent/20"
               : "text-primary hover:bg-accent/15 hover:scale-102"
-          }`}
+            }`}
         >
           {day}
         </button>
@@ -186,18 +198,18 @@ export default function BookingCalendar() {
             {step === 4 && "Booking Error"}
           </span>
         </div>
-        <span className="text-xs text-gray-400 font-light">
+        <span className="text-xs text-gray-400 font-light px-12">
           {step <= 2 ? `Step ${step} of 2` : "Finished"}
         </span>
       </div>
 
       <div className="p-6 sm:p-8">
-        
+
         {/* STEP 1: Date & Time Picker */}
         {step === 1 && (
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              
+
               {/* Date Column */}
               <div className="md:col-span-7 space-y-4">
                 <div className="flex items-center justify-between mb-4">
@@ -242,24 +254,23 @@ export default function BookingCalendar() {
                   Available Hours
                 </h3>
                 {selectedDate ? (
-                  <div className="grid grid-cols-2 md:grid-cols-1 gap-2.5">
+                  <div className="grid grid-cols-2 gap-2.5 max-h-[310px] overflow-y-auto pr-1.5">
                     {timeSlots.map((slot) => (
                       <button
                         key={slot}
                         type="button"
                         onClick={() => setSelectedTime(slot)}
-                        className={`py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-center transition-all ${
-                          selectedTime === slot
-                            ? "bg-primary border-primary text-white scale-102 shadow-md shadow-primary/20"
-                            : "bg-bg-light hover:bg-accent/15 border border-transparent text-gray-700 hover:text-primary hover:scale-102"
-                        }`}
+                        className={`py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-center transition-all ${selectedTime === slot
+                          ? "bg-primary border-primary text-white scale-102 shadow-md shadow-primary/20"
+                          : "bg-bg-light hover:bg-accent/15 border border-transparent text-gray-700 hover:text-primary hover:scale-102"
+                          }`}
                       >
                         {slot}
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <div className="h-full min-h-[150px] border border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-4 text-center">
+                  <div className="h-[310px] border border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-4 text-center">
                     <p className="text-xs text-gray-400 leading-relaxed font-light">
                       Please pick a date on the calendar first to view open time slots.
                     </p>
@@ -274,11 +285,10 @@ export default function BookingCalendar() {
                 type="button"
                 disabled={!selectedDate || !selectedTime}
                 onClick={() => setStep(2)}
-                className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                  selectedDate && selectedTime
-                    ? "bg-accent text-primary hover:bg-primary hover:text-white shadow-lg hover:scale-102"
-                    : "bg-gray-100 text-gray-400 cursor-not-allowed"
-                }`}
+                className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${selectedDate && selectedTime
+                  ? "bg-accent text-primary hover:bg-primary hover:text-white shadow-lg hover:scale-102"
+                  : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  }`}
               >
                 Continue
               </button>
@@ -372,6 +382,74 @@ export default function BookingCalendar() {
                   <option value="New Custom Build">New Custom Build</option>
                 </select>
               </div>
+
+              {/* Street Address */}
+              <div className="sm:col-span-2 space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wide text-primary flex items-center">
+                  <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                  Street Address
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="123 Main St"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-sans focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent bg-transparent"
+                />
+              </div>
+
+              {/* City */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wide text-primary flex items-center">
+                  <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                  City
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Fairfax"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-sans focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent bg-transparent"
+                />
+              </div>
+
+              {/* Zip Code */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wide text-primary flex items-center">
+                  <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                  Zip Code
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  placeholder="22030"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-sans focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent bg-transparent"
+                />
+              </div>
+
+              {/* How Did You Find Us */}
+              <div className="sm:col-span-2 space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wide text-primary flex items-center">
+                  <Megaphone className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                  How Did You Find Us?
+                </label>
+                <select
+                  value={referralSource}
+                  onChange={(e) => setReferralSource(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-sans focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent bg-transparent"
+                >
+                  <option value="Google Search">Google Search</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="Referral / Word of Mouth">Referral / Word of Mouth</option>
+                  <option value="Local Signage / Truck logo">Local Signage / Truck logo</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
             </div>
 
             {/* Details */}
@@ -421,7 +499,7 @@ export default function BookingCalendar() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 text-accent rounded-full mb-4 shadow-sm border border-accent/20">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            
+
             <div>
               <h2 className="font-heading text-2xl font-black text-primary tracking-tight">
                 Appointment Requested!
@@ -446,6 +524,14 @@ export default function BookingCalendar() {
               <div className="flex justify-between">
                 <span className="text-gray-400 font-light">Time:</span>
                 <span className="font-semibold text-primary">{selectedTime}</span>
+              </div>
+              <div className="flex justify-between border-t border-gray-100 pt-3 mt-3">
+                <span className="text-gray-400 font-light">Referral Source:</span>
+                <span className="font-semibold text-primary">{referralSource}</span>
+              </div>
+              <div className="flex flex-col text-left border-t border-gray-100 pt-3 mt-3">
+                <span className="text-gray-400 font-light text-xs mb-1">Site Address:</span>
+                <span className="font-semibold text-primary">{address}, {city}, {zipCode}</span>
               </div>
             </div>
 

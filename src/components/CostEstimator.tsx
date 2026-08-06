@@ -13,7 +13,13 @@ import {
   Check, 
   Calculator,
   ArrowRight,
-  Calendar
+  Calendar,
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Megaphone,
+  FileText
 } from "lucide-react";
 
 type ProjectType = "kitchen" | "bathroom" | "addition" | "basement" | "wholehouse";
@@ -85,7 +91,11 @@ export default function CostEstimator() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("Fairfax County");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [referralSource, setReferralSource] = useState("Google Search");
+  const [details, setDetails] = useState("");
   const [timeframe, setTimeframe] = useState("1-3 Months");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -200,7 +210,7 @@ export default function CostEstimator() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone) {
+    if (!name || !email || !phone || !address || !city || !zipCode || !referralSource) {
       setSubmitError("Please fill out all required fields.");
       return;
     }
@@ -220,9 +230,12 @@ export default function CostEstimator() {
       addons: ADDON_OPTIONS
         .filter((o) => selectedAddons.includes(o.id) && o.applicableTo.includes(projectType))
         .map((o) => o.label),
-      location,
-      timeframe,
-      estimatedCostRange: `$${estMin.toLocaleString()} - $${estMax.toLocaleString()}`
+      address,
+      city,
+      zipCode,
+      referralSource,
+      details,
+      timeframe
     };
 
     try {
@@ -235,7 +248,7 @@ export default function CostEstimator() {
           details: JSON.stringify(detailsSummary),
           estimated_min: estMin,
           estimated_max: estMax,
-          location,
+          location: `${address}, ${city}, ${zipCode}`,
           timeframe,
         }
       ]);
@@ -284,20 +297,36 @@ export default function CostEstimator() {
           <div className="w-16 h-16 bg-accent-green/20 text-accent-green rounded-full flex items-center justify-center mb-6">
             <Check className="w-8 h-8" />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-2">Estimate Generated!</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-2">Request Received!</h2>
           <p className="text-gray-400 max-w-md mb-8">
-            Thank you, <span className="text-white font-semibold">{name}</span>. We've registered your project preferences and sent an email copy to <span className="text-white font-semibold">{email}</span>.
+            Thank you, <span className="text-white font-semibold">{name}</span>. We have registered your custom project specifications and details.
           </p>
 
-          <div className="bg-primary/60 p-6 rounded-xl border border-white/5 mb-8 w-full max-w-md">
-            <span className="text-xs uppercase text-gray-400 tracking-wider block mb-1">Estimated Cost Range</span>
-            <span className="text-4xl font-extrabold text-accent">
-              ${estMin.toLocaleString()} - ${estMax.toLocaleString()}
+          <div className="bg-primary/60 p-6 rounded-xl border border-white/5 mb-8 w-full max-w-md text-left space-y-3.5 text-sm">
+            <span className="text-xs uppercase text-gray-400 tracking-wider block mb-2 border-b border-white/5 pb-2 text-center font-bold">
+              Summary of Specifications
             </span>
-            <span className="text-xs text-gray-400 block mt-2">
-              Based on {qualityLevel} materials in {location}
-            </span>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Category:</span>
+              <span className="font-semibold text-white capitalize">{projectType === "wholehouse" ? "Whole House Remodel" : projectType}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Material Grade:</span>
+              <span className="font-semibold text-white capitalize">{qualityLevel}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Target Timeframe:</span>
+              <span className="font-semibold text-white">{timeframe}</span>
+            </div>
+            <div className="flex flex-col pt-3 border-t border-white/5">
+              <span className="text-xs text-gray-400 mb-1">Site Address:</span>
+              <span className="font-semibold text-white text-xs">{address}, {city}, {zipCode}</span>
+            </div>
           </div>
+
+          <p className="text-sm text-gray-300 max-w-md mb-8 font-light leading-relaxed">
+            Our lead estimator will review your specifications, map local structural considerations, and contact you personally at <strong className="text-white">{phone}</strong> to provide a detailed, itemized cost proposal.
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <button
@@ -315,6 +344,11 @@ export default function CostEstimator() {
                 setName("");
                 setEmail("");
                 setPhone("");
+                setAddress("");
+                setCity("");
+                setZipCode("");
+                setReferralSource("Google Search");
+                setDetails("");
               }}
               className="px-8 py-4 bg-white/5 border border-white/10 font-bold uppercase tracking-wider rounded-full hover:bg-white/10 hover:text-white transition-all text-sm text-gray-300"
             >
@@ -629,10 +663,10 @@ export default function CostEstimator() {
           {/* STEP 5: COST SUMMARY & LEAD FORM */}
           {step === 5 && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* Left Column: Summary and Cost Gauge */}
-              <div className="lg:col-span-5 flex flex-col justify-between bg-white/5 p-6 rounded-xl border border-white/15">
+              {/* Left Column: Summary (No cost gauge) */}
+              <div className="lg:col-span-5 flex flex-col justify-between bg-white/5 p-6 rounded-xl border border-white/15 text-left">
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-gray-200">Your Project Profile</h3>
+                  <h3 className="font-bold text-lg mb-4 text-gray-200 font-heading">Your Project Profile</h3>
                   
                   <ul className="space-y-3.5 text-sm mb-6 text-gray-400">
                     <li>
@@ -666,42 +700,46 @@ export default function CostEstimator() {
                   </ul>
                 </div>
 
-                <div className="pt-6 border-t border-white/10 mt-4">
-                  <span className="text-xs uppercase tracking-wider text-gray-400 block mb-1">Estimated Cost Range</span>
-                  <span className="text-3xl font-extrabold text-accent block leading-tight">
-                    ${estMin.toLocaleString()} - ${estMax.toLocaleString()}
-                  </span>
-                  <span className="text-[10px] text-gray-500 block leading-normal mt-2">
-                    *Estimates are calculated using local Northern Virginia construction cost indexes. Final prices will vary based on custom framing configurations.
-                  </span>
+                <div className="pt-6 border-t border-white/10 mt-6 space-y-4">
+                  <div className="flex items-center space-x-2 text-accent">
+                    <Calculator className="w-5 h-5" />
+                    <span className="font-bold text-xs uppercase tracking-wider">Custom Estimate Process</span>
+                  </div>
+                  <p className="text-xs text-gray-400 leading-relaxed font-light">
+                    To guarantee precise pricing, our estimation team reviews layout parameters, dimensions, and selected finishes individually. We will contact you shortly to review your selections and prepare a detailed, itemized cost proposal.
+                  </p>
                 </div>
               </div>
 
               {/* Right Column: Lead Form */}
               <div className="lg:col-span-7">
-                <h2 className="text-2xl font-bold mb-2">Get your cost breakdown sheet</h2>
+                <h2 className="text-2xl font-bold mb-2">Request Your Detailed Estimate</h2>
                 <p className="text-gray-400 mb-6 text-sm">
-                  Enter your contact details below to email this breakdown to yourself and schedule a consultation to lock in pricing.
+                  Provide your contact and site details below. Our estimation lead will connect with you personally to deliver a custom cost breakdown.
                 </p>
 
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-1.5">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="John Doe"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
-                    />
-                  </div>
-
+                <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-1.5">
+                    {/* Name */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <User className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <Mail className="w-3.5 h-3.5 mr-1.5 text-accent" />
                         Email Address *
                       </label>
                       <input
@@ -713,8 +751,13 @@ export default function CostEstimator() {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
                       />
                     </div>
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-1.5">
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Phone */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <Phone className="w-3.5 h-3.5 mr-1.5 text-accent" />
                         Phone Number *
                       </label>
                       <input
@@ -726,41 +769,109 @@ export default function CostEstimator() {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
                       />
                     </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-1.5">
-                        Virginia Location *
-                      </label>
-                      <select
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        className="w-full bg-primary border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent text-sm"
-                      >
-                        <option>Fairfax County</option>
-                        <option>Arlington County</option>
-                        <option>Loudoun County</option>
-                        <option>Prince William County</option>
-                        <option>Alexandria (City)</option>
-                        <option>Other / Northern Virginia</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-1.5">
-                        Target Start Date
+                    {/* Target Timeframe */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <Calendar className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                        Target Start Date *
                       </label>
                       <select
                         value={timeframe}
                         onChange={(e) => setTimeframe(e.target.value)}
                         className="w-full bg-primary border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent text-sm"
                       >
-                        <option>Immediately</option>
-                        <option>1-3 Months</option>
-                        <option>3-6 Months</option>
-                        <option>Just planning/Curious</option>
+                        <option value="Immediately">Immediately</option>
+                        <option value="1-3 Months">1-3 Months</option>
+                        <option value="3-6 Months">3-6 Months</option>
+                        <option value="Just planning/Curious">Just planning/Curious</option>
                       </select>
                     </div>
+                  </div>
+
+                  {/* Street Address */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                      <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                      Street Address *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="123 Main St"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* City */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                        City *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Fairfax"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
+                      />
+                    </div>
+
+                    {/* Zip Code */}
+                    <div className="space-y-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                        <MapPin className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                        Zip Code *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={zipCode}
+                        onChange={(e) => setZipCode(e.target.value)}
+                        placeholder="22030"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* How Did You Find Us */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                      <Megaphone className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                      How Did You Find Us? *
+                    </label>
+                    <select
+                      value={referralSource}
+                      onChange={(e) => setReferralSource(e.target.value)}
+                      className="w-full bg-primary border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent text-sm"
+                    >
+                      <option value="Google Search">Google Search</option>
+                      <option value="Instagram">Instagram</option>
+                      <option value="Facebook">Facebook</option>
+                      <option value="Referral / Word of Mouth">Referral / Word of Mouth</option>
+                      <option value="Local Signage / Truck logo">Local Signage / Truck logo</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  {/* Project Details */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center">
+                      <FileText className="w-3.5 h-3.5 mr-1.5 text-accent" />
+                      Additional Project Info (Optional)
+                    </label>
+                    <textarea
+                      value={details}
+                      onChange={(e) => setDetails(e.target.value)}
+                      placeholder="Add any specific goals, custom styling parameters, or questions here."
+                      rows={2}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent text-sm"
+                    />
                   </div>
 
                   {submitError && (
@@ -774,7 +885,7 @@ export default function CostEstimator() {
                     disabled={submitting}
                     className="w-full flex items-center justify-center px-8 py-3.5 bg-accent-green text-primary font-bold uppercase tracking-wider rounded-xl hover:bg-white hover:scale-102 transition-all shadow-lg text-sm mt-6 disabled:opacity-50"
                   >
-                    {submitting ? "Submitting..." : "Email My Cost Estimate"}
+                    {submitting ? "Submitting..." : "Submit Estimate Request"}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </button>
                 </form>

@@ -163,7 +163,7 @@ export default function PhoneVideoPlayer() {
 
             <Reveal animation="fade-in-up" delay={550} className="pt-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/nova.remodel/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold uppercase tracking-wider rounded-full hover:scale-105 transition-all shadow-md text-sm border border-transparent"
