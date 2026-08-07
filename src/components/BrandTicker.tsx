@@ -4,16 +4,20 @@ import React from "react";
 import Image from "next/image";
 
 const brands = [
-  { name: "Alside", logo: "/ticker/alside.jpg" },
+  { name: "Conestoga Tile", logo: "/ticker/ConestogaTile.jpg" },
   { name: "Cambria", logo: "/ticker/cambria.jpg" },
+  { name: "Crestwood", logo: "/ticker/crestwood.jpg" },
   { name: "Daltile", logo: "/ticker/daltile.jpg" },
   { name: "Decora", logo: "/ticker/decora.jpg" },
+  { name: "Fabuwood", logo: "/ticker/fabuwood.jpg" },
+  { name: "Home Depot", logo: "/ticker/homedepot.jpg" },
+  { name: "Jamie", logo: "/ticker/jamie.jpg" },
   { name: "Kemper", logo: "/ticker/kemper.jpg" },
-  { name: "Pella", logo: "/ticker/pella.jpg" },
-  { name: "Showplace", logo: "/ticker/showplace.jpg" },
+  { name: "KraftMaid", logo: "/ticker/kraftmaid.jpg" },
+  { name: "Merola Tile", logo: "/ticker/merolatile.jpg" },
+  { name: "MSI", logo: "/ticker/msi.jpg" },
   { name: "Silestone", logo: "/ticker/silestone.jpg" },
-  { name: "Top Knobs", logo: "/ticker/topknobs.jpg" },
-  { name: "Ultracraft", logo: "/ticker/ultracraft.jpg" }
+  { name: "Top Knobs", logo: "/ticker/topknobs.jpg" }
 ];
 
 export default function BrandTicker() {
@@ -31,12 +35,12 @@ export default function BrandTicker() {
 
         {/* Left and Right Fade Overlays */}
         <div className="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-8 sm:before:w-14 before:bg-gradient-to-r before:from-bg-light before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-8 sm:after:w-14 after:bg-gradient-to-l after:from-bg-light after:to-transparent">
-          
+
           {/* Moving Track */}
           <div className="flex animate-infinite-scroll py-4 items-center gap-10 sm:gap-14">
             {doubleBrands.map((brand, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="relative w-28 sm:w-36 h-12 flex-shrink-0 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer"
               >
                 <Image

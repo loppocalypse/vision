@@ -22,6 +22,16 @@ export default function Blog() {
   const posts: BlogPost[] = [
     {
       id: 1,
+      title: "Luxury Residential Additions in McLean: Maximizing Estate Space and Value",
+      desc: "How McLean homeowners are leveraging high-end residential additions and custom remodeling to expand their estates without leaving the historic community.",
+      category: "Home Additions",
+      date: "July 12, 2026",
+      readTime: "7 min read",
+      image: "/images/addition.png",
+      slug: "mclean-luxury-additions"
+    },
+    {
+      id: 2,
       title: "5 Kitchen Remodeling Trends Shaping Northern Virginia in 2026",
       desc: "Discover the material palettes, smart tech integration, and layouts currently preferred by Fairfax and Arlington homeowners for luxury kitchens.",
       category: "Kitchen Remodeling",
@@ -31,7 +41,7 @@ export default function Blog() {
       slug: "trends-2026"
     },
     {
-      id: 2,
+      id: 3,
       title: "Understanding the Permitting & HOA Approvals Process in Fairfax County",
       desc: "A practical guide to navigating local building permits, setback rules, and historic district restrictions for custom home additions.",
       category: "Home Additions",
@@ -41,7 +51,7 @@ export default function Blog() {
       slug: "permitting-guide"
     },
     {
-      id: 3,
+      id: 4,
       title: "How to Budget for a Luxury Master Bathroom Renovation",
       desc: "Breakdowns of plumbing shifts, tile costs, double vanities, and smart shower fixtures so you can plan your master bath with financial confidence.",
       category: "Bathroom Remodeling",

@@ -21,18 +21,6 @@ export default function Home() {
 
   const services = [
     {
-      title: "Kitchen Remodeling",
-      desc: "Turn your kitchen into a luxurious culinary haven with bespoke cabinets, custom marble counter islands, and state-of-the-art designs.",
-      image: "/images/kitchen.png",
-      anchor: "/services#kitchen"
-    },
-    {
-      title: "Bathroom Remodeling",
-      desc: "Create a serene, spa-like experience in your master bathroom with walk-in double showers, standalone tubs, and floating custom vanities.",
-      image: "/images/bathroom.png",
-      anchor: "/services#bathroom"
-    },
-    {
       title: "Home Additions",
       desc: "Expand your square footage with seamless home extensions, custom garages, decks, sunrooms, and structures that perfectly complement your current architecture.",
       image: "/images/addition.png",
@@ -43,6 +31,18 @@ export default function Home() {
       desc: "Turn cold, unfinished basements into dry, warm, and highly usable family spaces, home theaters, workout gyms, and custom wet bars.",
       image: "/images/hero-bg.png",
       anchor: "/services#basement"
+    },
+    {
+      title: "Kitchen Remodeling",
+      desc: "Turn your kitchen into a luxurious culinary haven with bespoke cabinets, custom marble counter islands, and state-of-the-art designs.",
+      image: "/images/kitchen.png",
+      anchor: "/services#kitchen"
+    },
+    {
+      title: "Bathroom Remodeling",
+      desc: "Create a serene, spa-like experience in your master bathroom with walk-in double showers, standalone tubs, and floating custom vanities.",
+      image: "/images/bathroom.png",
+      anchor: "/services#bathroom"
     }
   ];
 
@@ -100,6 +100,14 @@ export default function Home() {
 
   const blogPosts = [
     {
+      title: "Luxury Residential Additions in McLean: Maximizing Estate Space and Value",
+      desc: "How McLean homeowners are leveraging high-end residential additions and custom remodeling to expand their estates without leaving the historic community.",
+      date: "July 12, 2026",
+      readTime: "7 min read",
+      image: "/images/addition.png",
+      url: "/blog/mclean-luxury-additions"
+    },
+    {
       title: "5 Kitchen Remodeling Trends Shaping Northern Virginia in 2026",
       desc: "Discover the material palettes, smart tech integration, and layouts currently preferred by Fairfax and Arlington homeowners.",
       date: "June 24, 2026",
@@ -114,14 +122,6 @@ export default function Home() {
       readTime: "8 min read",
       image: "/images/addition.png",
       url: "/blog/permitting-guide"
-    },
-    {
-      title: "How to Budget for a Luxury Master Bathroom Renovation",
-      desc: "Breakdowns of plumbing shifts, tile costs, double vanities, and smart shower fixtures so you can plan with financial confidence.",
-      date: "April 11, 2026",
-      readTime: "6 min read",
-      image: "/images/bathroom.png",
-      url: "/blog/bathroom-budgeting"
     }
   ];
 
@@ -132,18 +132,19 @@ export default function Home() {
       <main className="flex-1">
         {/* Section 1: Hero */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
-          {/* Background Image with Dark Tint Overlay */}
+          {/* Background Video with Dark Tint Overlay */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/hero-bg.png"
-              alt="Vision Custom Build luxury interior design"
-              fill
-              priority
-              className="object-cover object-center"
+            <video
+              src="/images/hero-video.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-primary/75 md:bg-primary/70"></div>
             {/* Visual bottom transition gradient */}
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-bg-light to-transparent"></div>
+            <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-bg-light to-transparent"></div>
           </div>
 
           {/* Hero Content */}
